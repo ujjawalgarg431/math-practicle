@@ -1,0 +1,28 @@
+import numpy as np
+
+# --- Encode function ---
+def encode(msg, key):
+    msg = msg.upper().replace(" ", "")
+    nums = [ord(c) - 64 for c in msg]     # A=1, B=2, ...
+    while len(nums) % len(key) != 0:
+        nums.append(0)                   # padding if needed
+    nums = np.array(nums).reshape(-1, len(key))
+    coded = nums.dot(key)
+    return coded
+
+# --- Decode function ---
+def decode(coded, key):
+    inv_key = np.linalg.inv(key)
+    decoded = coded.dot(inv_key).flatten()
+    text = ''.join(chr(int(round(n)) + 64) if n > 0 else ' ' for n in decoded)
+    return text
+
+# --- Main ---
+message = "LINEAR ALGEBRA IS FUN"
+key = np.array([[2, 1], [1, 1]])     # simple nonsingular matrix
+
+print("Original Message:", message)
+coded = encode(message, key)
+print("\nEncoded Matrix:\n", np.round(coded))
+decoded = decode(coded, key)
+print("\nDecoded Message:", decoded)
