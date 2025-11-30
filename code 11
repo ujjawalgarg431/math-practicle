@@ -1,0 +1,15 @@
+import sympy as sp
+
+def gradient():
+    x, y = sp.symbols('x y')          # two variables
+    f = input("Enter scalar function f(x, y): ")   # example: x**2 + 3*y
+    f = sp.sympify(f)
+
+    fx = sp.diff(f, x)
+    fy = sp.diff(f, y)
+
+    print("\nGradient of f(x, y):")
+    print("∇f = ({}, {})".format(fx, fy))
+
+# --- Main ---
+gradient()
