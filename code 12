@@ -1,0 +1,23 @@
+import sympy as sp
+
+def divergence():
+    # define variables
+    x, y, z = sp.symbols('x y z')
+
+    # take vector field input
+    Fx = input("Enter Fx: ")     # example: x*y
+    Fy = input("Enter Fy: ")     # example: y*z
+    Fz = input("Enter Fz: ")     # example: z*x
+
+    # convert to symbolic form
+    Fx, Fy, Fz = sp.sympify(Fx), sp.sympify(Fy), sp.sympify(Fz)
+
+    # compute divergence
+    div = sp.diff(Fx, x) + sp.diff(Fy, y) + sp.diff(Fz, z)
+
+    # print result
+    print("\nDivergence of F = ∂Fx/∂x  +  ∂Fy/∂y  +  ∂Fz/∂z")
+    print("Divergence =", div)
+
+# --- Main ---
+divergence()
