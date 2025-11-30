@@ -1,0 +1,20 @@
+import sympy as sp
+
+def curl():
+    x, y, z = sp.symbols('x y z')
+
+    # take vector field components
+    Fx = sp.sympify(input("Enter Fx: "))   # Example: y*z
+    Fy = sp.sympify(input("Enter Fy: "))   # Example: z*x
+    Fz = sp.sympify(input("Enter Fz: "))   # Example: x*y
+
+    # compute curl = (dFz/dy - dFy/dz, dFx/dz - dFz/dx, dFy/dx - dFx/dy)
+    curl_x = sp.diff(Fz, y) - sp.diff(Fy, z)
+    curl_y = sp.diff(Fx, z) - sp.diff(Fz, x)
+    curl_z = sp.diff(Fy, x) - sp.diff(Fx, y)
+
+    print("\nCurl of F = (∂Fz/∂y - ∂Fy/∂z, ∂Fx/∂z - ∂Fz/∂x, ∂Fy/∂x - ∂Fx/∂y)")
+    print("Curl =", (curl_x, curl_y, curl_z))
+
+# --- Main ---
+curl()
