@@ -1,0 +1,29 @@
+import numpy as np
+
+# --- Function to take input vectors ---
+def input_vectors():
+    n = int(input("Enter number of vectors: "))
+    m = int(input("Enter dimension of each vector: "))
+    vectors = []
+    for i in range(n):
+        v = list(map(float, input(f"Enter elements of vector {i+1}: ").split()))
+        vectors.append(np.array(v))
+    return vectors
+
+# --- Gram-Schmidt Orthogonalization ---
+def gram_schmidt(vectors):
+    orthonormal = []
+    for v in vectors:
+        for u in orthonormal:
+            v = v - np.dot(v, u) * u     # Make orthogonal
+        v = v / np.linalg.norm(v)        # Normalize
+        orthonormal.append(v)
+    return orthonormal
+
+# --- Main Program ---
+vectors = input_vectors()
+basis = gram_schmidt(vectors)
+
+print("\nOrthonormal Basis:")
+for i, b in enumerate(basis, 1):
+    print(f"u{i} =", np.round(b, 3))
