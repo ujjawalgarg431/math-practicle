@@ -1,0 +1,40 @@
+import numpy as np
+
+# --- Take matrix input from user ---
+def input_matrix():
+    n = int(input("Enter size of square matrix: "))
+    A = []
+    for i in range(n):
+        A.append(list(map(float, input(f"Row {i+1}: ").split())))
+    return np.array(A)
+
+# --- Find eigenvalues and eigenvectors ---
+def eigen_info(A):
+    values, vectors = np.linalg.eig(A)
+    return values, vectors
+
+# --- Check diagonalizable or not ---
+def check_diagonalizable(A):
+    values, vectors = eigen_info(A)
+    if np.linalg.matrix_rank(vectors) == len(A):
+        print("\nMatrix is Diagonalizable.")
+        print("Eigenvalues:", np.round(values, 3))
+    else:
+        print("\nMatrix is NOT Diagonalizable.")
+        print("Eigenvalues:", np.round(values, 3))
+
+# --- Verify Cayley-Hamilton theorem ---
+def verify_cayley_hamilton(A):
+    p = np.poly(A)        # coefficients of characteristic polynomial
+    n = len(A)
+    result = sum(p[i] * np.linalg.matrix_power(A, n - i - 1) for i in range(n)) + p[-1] * np.eye(n)
+
+    if np.allclose(result, 0):
+        print("Cayley-Hamilton Theorem Verified.")
+    else:
+        print("Cayley-Hamilton Theorem Not Verified.")
+
+# --- Main Program ---
+A = input_matrix()
+check_diagonalizable(A)
+verify_cayley_hamilton(A)
